@@ -28,8 +28,8 @@ CPPFLAGS := $(INC_FLAGS) -MMD -MP -g
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CXX) $(OBJS) -o $@
 
-# Build step for C source
-$(BUILD_DIR)/%.c.o: %.c
+# Build step for S source
+$(BUILD_DIR)/%.s.o: %.s
 	mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 

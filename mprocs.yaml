@@ -1,2 +1,10 @@
 procs:
-  run: make && build/hello
+  debug: 
+    shell: make && lldb build/hello
+    autostart: false
+  clean-make: 
+    shell: make clean && make
+    autostart: false
+  clean: 
+    shell: make clean
+    autostart: false

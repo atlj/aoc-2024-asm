@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 int main() {
-   printf("hey there this is ARM:)\n");
-   return 0;
+  int burak = 64;
+  printf("hey there this is ARM:)\n");
+  return 0;
 }

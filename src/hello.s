@@ -5,18 +5,17 @@
 _main:
   adrp x4, hellostr@page
   mov x5, #10 ; we don't care about other chars
-  ldr x6, [x4]
+  ldrb w6, [x4]
 loop:
-  and x6, x6, #0xFF
   ; we will check between
-  cmp x6, #0x61
+  cmp w6, #0x61
   b.LT continue
-  cmp x6, #0x7A
+  cmp w6, #0x7A
   b.GT continue
-  sub x6, x6, #('a'-'A')
+  sub w6, w6, #('a'-'A')
   strb w6, [x4]
 continue:
-  ldr x6, [x4, #1]!
+  ldrb w6, [x4, #1]!
   subs x5, x5, #1
   b.NE loop
 print: ; Prints [x1]

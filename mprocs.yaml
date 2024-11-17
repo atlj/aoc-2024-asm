@@ -1,4 +1,7 @@
 procs:
+  make-and-run: 
+    shell: make && build/hello
+    autostart: false
   debug: 
     shell: make && lldb build/hello
     autostart: false

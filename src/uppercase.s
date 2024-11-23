@@ -2,7 +2,7 @@
 
 // X0, address of the memory to the starting of the text
 // X1, Length of the text aka how many bytes of data do we have to convert.
-// Returns the same memory address with the data mutated -> Make this so we return via stack
+// Returns the same memory address with the data mutated
 _uppercase:
   ; X2, current operated char/byte
   ; X3, Read address
@@ -15,7 +15,7 @@ loop:
   ; Make sure we operate on underscore chars
   cmp w2, #0x61 ; Make sure we're above 'a'
   b.LT continue
-  cmp w2, #0x7A ; Make sure we're belove 'z'
+  cmp w2, #0x7A ; Make sure we're below 'z'
   b.GT continue
 
   sub w2, w2, #('a'-'A') ; Do the actual operation

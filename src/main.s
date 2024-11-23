@@ -4,6 +4,9 @@
 _main:
   adrp x0, hellostr@page ; Start address of the string
   mov x1, #12; Length of the string
+  bl _uppercase ; This preserves x0 so we don't need to reset it
+
+  mov x1, #12; Length of the string
   bl _print
 
 exit:

@@ -1,9 +1,9 @@
 procs:
   make-and-run: 
-    shell: make && build/hello
+    shell: make && build/main
     autostart: false
   debug: 
-    shell: make && lldb build/hello
+    shell: make && lldb build/main
     autostart: false
   clean-make: 
     shell: make clean && make

@@ -1,4 +1,4 @@
-TARGET_EXEC := hello
+TARGET_EXEC := main
 
 BUILD_DIR := ./build
 SRC_DIRS := ./src

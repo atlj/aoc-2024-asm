@@ -10,7 +10,7 @@
 
 .macro read_stdin address, length
   mov x0, #0
-  adrp x1, \address
+  mov x1, \address
   mov x2, \length
   mov x16, SYS_READ
   svc #0x80 ; call supervisor

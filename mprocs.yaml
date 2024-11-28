@@ -1,6 +1,6 @@
 procs:
   make-and-run: 
-    shell: make && cat hello.txt | build/main
+    shell: make && cat input.txt | build/main
     autostart: false
   debug: 
     shell: make && lldb build/main -s lldbcommands.txt

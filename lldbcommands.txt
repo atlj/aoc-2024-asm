@@ -1,2 +1,2 @@
 b main
-process launch -i hello.txt
+process launch -i input.txt

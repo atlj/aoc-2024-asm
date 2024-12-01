@@ -34,6 +34,11 @@ $(BUILD_DIR)/%.s.o: %.s
 	mkdir -p $(dir $@)
 	as $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
+# Build step for c source
+$(BUILD_DIR)/%.c.o: %.c
+	mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
 # Build step for S source
 $(BUILD_DIR)/%.S.o: %.S
 	mkdir -p $(dir $@)

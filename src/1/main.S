@@ -24,15 +24,42 @@ _main:
   mov x2, x21
   mov x3, x22
   bl _parse_list_strings
+  mov x23, x0; x23 is the total number of elements we have
+
+  mov x0, x19
+  mov x1, x23
+  bl _convert_string_list_to_int_list; Parse the first list
+
+  mov x0, x20
+  mov x1, x23
+  bl _convert_string_list_to_int_list; Parse the second list
+
+  mov x0, x19
+  mov x1, x23
+  bl _bubble_sort
+
+  mov x0, x20
+  mov x1, x23
+  bl _bubble_sort
+
+  mov x0, x19
+  mov x1, x20
+  mov x2, x23
+  bl _distances
+
+  str x0, [sp, #-16]!
+  adr x0, val_burak
+  bl _printf
+  add sp, sp, #16
 
 exit:
   mov x0, 0 ; status
-custom_exit:
-  mov x16, 1 ; exit
-  svc #0x80
+  bl _exit
 
 .include "lists.S"
 .include "read.S"
+.include "sort.S"
+.include "distances.S"
 .global _main
 .align 4
 

@@ -33,3 +33,27 @@ continue:
 
   mov x0, x6
   ret
+
+
+; x0 is the start address for the list
+; x1 is the length
+_convert_string_list_to_int_list:
+  stp lr, x19, [SP, #-16]!
+  stp x20, x21, [SP, #-16]!
+
+  mov x19, x0; Persist these so we can call c
+  mov x20, x1
+convert_loop:
+  mov x0, x19
+  bl _atoi
+
+  ; rev x0, x0; Remove this possibly
+  str x0, [x19], #8
+
+  subs x20, x20, #1
+  b.NE convert_loop
+
+  ldp x20, x21, [SP], #16
+  ldp lr, x19, [SP], #16
+  ret
+

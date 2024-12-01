@@ -35,17 +35,9 @@ _main:
   bl _convert_string_list_to_int_list; Parse the second list
 
   mov x0, x19
-  mov x1, x23
-  bl _bubble_sort
-
-  mov x0, x20
-  mov x1, x23
-  bl _bubble_sort
-
-  mov x0, x19
   mov x1, x20
   mov x2, x23
-  bl _distances
+  bl _similiarity
 
   str x0, [sp, #-16]!
   adr x0, val_burak
@@ -60,6 +52,7 @@ exit:
 .include "read.S"
 .include "sort.S"
 .include "distances.S"
+.include "similiarity.S"
 .global _main
 .align 4
 

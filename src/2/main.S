@@ -15,6 +15,8 @@ _calculate_points:
   mov w4, #0
 
 calculate_outer_loop:
+  mov x13, #2; We have a joker per row
+
   # increment rows by remaining items so we account for skipped vals
   mov x12, #8
   madd x0, x4, x12, x0
@@ -28,15 +30,18 @@ calculate_loop:
   ldr x5, [x0], #8; Load the current number
   ldr x6, [x0]; Load the next number
 
+calculate_loop_with_custom_vals:
+
   subs x8, x6, x5; Get the difference between two numbers, and set the condition flags
-  b.EQ calculate_skip_row; There has to always be a difference
+  b.EQ calculate_skip_row_with_joker; There has to always be a difference
 
   neg x9, x8
   cmp x8, #0
   csel x8, x8, x9, GT; Select the positive value
+break:
 
   cmp x8, #3
-  b.GT calculate_skip_row; If the difference is larger than 3, just skip the row, we don't have to check for zero since we did it already
+  b.GT calculate_skip_row_with_joker; If the difference is larger than 3, just skip the row, we don't have to check for zero since we did it already
 
   ; Let's calculate the direction now
 
@@ -50,7 +55,7 @@ calculate_loop:
   b.EQ calculate_skip_val; Just skip the current val since this was the first iteration
 
   cmp x7, x11
-  b.ne calculate_skip_row; Enums should always be the same since we skipped zero
+  b.ne calculate_skip_row_with_joker; Enums should always be the same since we skipped zero
 
 calculate_skip_val:
   mov x7, x11; Update the enum for next iteration
@@ -59,15 +64,35 @@ calculate_skip_val:
   b.ne calculate_loop
 
   add x3, x3, #1; Increment the total score since we came here without skipping
-  add x0, x0, #8
+  add x0, x0, #8; We skip the last item
 
 calculate_skip_row:
 
+  ; Set the next val
   subs x2, x2, #1
   b.ne calculate_outer_loop
 
   mov x0, x3
   ret
+
+calculate_skip_row_with_joker:
+  cmp x13, #2
+  b.eq calculate_increment_second
+calculate_increment_first:
+  ldr x5, [x0, #-8]
+  ldr x6, [x0, #8]
+  b calculate_increment_continue
+calculate_increment_second:
+  ldr x5, [x0, #-16]
+  ldr x6, [x0]
+calculate_increment_continue:
+
+  ; Set custom values for current and next vals
+  mov x6, x6
+  ; If we have a joker, then we loop back
+  subs x13, x13, #1
+  b.pl calculate_loop_with_custom_vals; Give it another go if we hit a joker
+  b calculate_skip_row; We cannot save it from here
 
 _main:
   mov x0, ELEM_COUNT

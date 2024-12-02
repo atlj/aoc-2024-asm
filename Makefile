@@ -1,4 +1,4 @@
-DAY = 1
+DAY = 2
 TARGET_EXEC := main
 
 BUILD_DIR := ./build

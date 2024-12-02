@@ -1,2 +1,2 @@
-b main
+b break
 process launch -i input.txt
